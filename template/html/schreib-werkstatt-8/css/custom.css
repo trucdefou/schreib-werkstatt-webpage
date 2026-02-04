@@ -1,0 +1,32 @@
+.two-columns {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Left column */
+.about_left {
+  width: 30%;
+}
+
+.top_author_image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Right column */
+.about_right {
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+  .two-columns {
+    flex-direction: column;
+  }
+
+  .about_left,
+  .about_right {
+    width: 100%;
+  }
+}
