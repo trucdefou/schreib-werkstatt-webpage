@@ -488,7 +488,6 @@ a{
 .tokyo_tm_home .avatar{
 	min-width: 300px;
 	min-height: 300px;
-	aspect-ratio: 1 / 1;
 	position: relative;
 	border-radius: 100%;
 }
