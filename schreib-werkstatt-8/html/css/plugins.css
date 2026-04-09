@@ -180,6 +180,11 @@ input[type="button"]{
 	        transition: all .3s ease;
 }
 
+/*------------------------------------------------------------------*/ 
+/*	03) FONTELLO
+/*------------------------------------------------------------------*/
+
+
 [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "fontello";
   font-style: normal;

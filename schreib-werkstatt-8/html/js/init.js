@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 	tokyo_tm_contact_form();
 	tokyo_tm_owl_carousel();
 	
-	jQuery(window).on('load', function(){
+	jQuery(window).load('body', function(){
 		tokyo_tm_my_load();
 	});
 	
@@ -49,58 +49,42 @@ function tokyo_tm_modalbox(){
 // -----------------------------------------------------
 // -------------   PAGE TRANSITION    ------------------
 // -----------------------------------------------------
+
 function tokyo_tm_page_transition(){
-    
-    "use strict";
-    
-    var section 		= jQuery('.tokyo_tm_section');
-    var allLi 			= jQuery('.transition_link li');
-    var button			= jQuery('.transition_link a, .author-link');
-    var wrapper 		= jQuery('.tokyo_tm_all_wrap');
-    var enter	 		= wrapper.data('enter');
-    var exit		 	= wrapper.data('exit');
-    
-    button.on('click',function(){
-        var element 	= jQuery(this);
-        var href		= element.attr('href');
-        
-        if(element.parent().hasClass('tokyo_tm_button')){
-            jQuery('.menu .transition_link a[href="'+href+'"]').trigger('click');
-            hashtag();
-            return false;
-        }
-        
-        var sectionID 	= jQuery(href);
-        
-        // Clear active class from ALL menu items (unfocus menu)
-        allLi.removeClass('active');
-        
-        // Reset portfolio filter when navigating to author sections
-        if(href === '#iryna' || href === '#pavlina') {
-            var filterContainer = jQuery(sectionID).find('.portfolio_filter');
-            if(filterContainer.length) {
-                filterContainer.find('a').removeClass('current');
-                filterContainer.find('a[data-filter="*"]').addClass('current');
-                // Reset isotope filter
-                var list = jQuery(sectionID).find('.portfolio_list');
-                if(list.length && jQuery().isotope) {
-                    list.isotope({ filter: '*' });
-                }
-            }
-        }
-        
-        // ...existing code...
-        wrapper.find(section).removeClass('animated '+enter);
-        if(wrapper.hasClass('opened')) {
-            wrapper.find(section).addClass('animated '+exit);
-        }
-        wrapper.addClass('opened');
-        wrapper.find(sectionID).removeClass('animated '+exit).addClass('animated '+enter);
-        jQuery(section).addClass('hidden');
-        jQuery(sectionID).removeClass('hidden').addClass('active');
-        
-        return false;
-    });
+	
+	"use strict";
+	
+	var section 		= jQuery('.tokyo_tm_section');
+	var allLi 			= jQuery('.transition_link li');
+	var button			= jQuery('.transition_link a');
+	var wrapper 		= jQuery('.tokyo_tm_all_wrap');
+	var enter	 		= wrapper.data('enter');
+	var exit		 	= wrapper.data('exit');
+	
+	button.on('click',function(){
+		var element 	= jQuery(this);
+		var href		= element.attr('href');
+		if(element.parent().hasClass('tokyo_tm_button')){
+			jQuery('.menu .transition_link a[href="'+href+'"]').trigger('click');
+			hashtag();
+			return false;
+		}
+		var sectionID 	= jQuery(href);
+		var parent	 	= element.closest('li');
+			if(!parent.hasClass('active')) {
+				allLi.removeClass('active');
+				wrapper.find(section).removeClass('animated '+enter);
+				if(wrapper.hasClass('opened')) {
+					wrapper.find(section).addClass('animated '+exit);
+				}
+				parent.addClass('active');
+				wrapper.addClass('opened');
+				wrapper.find(sectionID).removeClass('animated '+exit).addClass('animated '+enter);
+				jQuery(section).addClass('hidden');
+				jQuery(sectionID).removeClass('hidden').addClass('active');
+			}
+		return false;
+	});
 }
 
 // -----------------------------------------------------
@@ -155,7 +139,7 @@ function tokyo_tm_service_popup(){
 		var content = parent.find('.service_hidden_details').html();
 		modalBox.addClass('opened');
 		modalBox.find('.description_wrap').html(content);
-		modalBox.find('.service_popup_informations').prepend('<div class="image"></div>');
+		modalBox.find('.service_popup_informations').prepend('<div class="image"><img src="img/thumbs/4-2.jpg" alt="" /><div class="main" data-img-url="'+elImage+'"></div></div>');
 		tokyo_tm_data_images();
 		modalBox.find('.service_popup_informations .image').after('<div class="main_title"><h3>'+title+'</h3></div>');
 		return false;
@@ -545,9 +529,3 @@ function tokyo_tm_owl_carousel(){
 		}
 	});
 }
-
-document.addEventListener('contextmenu', function(e) {
-    if (e.target.tagName === 'IMG') {
-        e.preventDefault(); // prevents the context menu
-    }
-});
